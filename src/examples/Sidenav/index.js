@@ -171,6 +171,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           </MDBox>
         </MDBox>
       </MDBox>
+      
       <Divider
         light={
           (!darkMode && !whiteSidenav && !transparentSidenav) ||
