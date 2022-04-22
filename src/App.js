@@ -40,7 +40,7 @@ import routes from "routes";
 import { useMaterialUIController, setMiniSidenav } from "context";
 
 // Images
-import brandDark from "assets/images/logo-ct-dark.png";
+import brandLight from "assets/images/logo-ct.png";
 
 // Import Cookies
 import { useCookies } from "react-cookie";
@@ -51,7 +51,6 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const { pathname } = useLocation();
   const [cookie] = useCookies(["userId", "role"]);
-  // const [cookie, setCookie] = useCookies(["userId", "role"]);
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -69,25 +68,15 @@ export default function App() {
     }
   };
 
-  // Change the openConfigurator state
-  // const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-
   // Setting the dir attribute for the body element
   useEffect(() => {
     document.body.setAttribute("dir", direction);
   }, [direction]);
 
-  // Setting page scroll to 0 when changing the route
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
   }, [pathname]);
-
-  useEffect(() => {
-    // setCookie("", "");
-    // setCookie("userId", "001");
-    // setCookie("role", "Administrator");
-  });
 
   const getRoutes = (allRoutes) =>
     allRoutes.map((route) => {
@@ -102,28 +91,90 @@ export default function App() {
       return null;
     });
 
-  return cookie.userId && cookie.role ? (
-    <ThemeProvider theme={themeDark}>
-      <CssBaseline />
-      {layout === "dashboard" && cookie.role === "Administrator" ? (
+  function renderContent() {
+    if (layout === "dashboard" && cookie.role === "Administrator") {
+      return (
         <>
           <Sidenav
             color={sidenavColor}
-            brand={brandDark}
-            brandName="Inventory System"
+            brand={brandLight}
+            brandName="Document Tracking"
             routes={routes.adminRoutes}
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
-          {/* <Configurator /> */}
-          {/* {configsButton} */}
-
           <Routes>
             {getRoutes(routes.adminRoutes)}
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>
         </>
-      ) : null}
+      );
+    }
+
+    if (layout === "dashboard" && cookie.role === "Procurement Staff") {
+      return (
+        <>
+          <Sidenav
+            color={sidenavColor}
+            brand={brandLight}
+            brandName="Inventory Management"
+            routes={routes.procurementStaffRoutes}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />
+          <Routes>
+            {getRoutes(routes.procurementStaffRoutes)}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </>
+      );
+    }
+
+    if (layout === "dashboard" && cookie.role === "Approving Body") {
+      return (
+        <>
+          <Sidenav
+            color={sidenavColor}
+            brand={brandLight}
+            brandName="Inventory Management"
+            routes={routes.approvingBodyRoutes}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />
+          <Routes>
+            {getRoutes(routes.approvingBodyRoutes)}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </>
+      );
+    }
+
+    if (layout === "dashboard" && cookie.role === "Requestor") {
+      return (
+        <>
+          <Sidenav
+            color={sidenavColor}
+            brand={brandLight}
+            brandName="Inventory Management"
+            routes={routes.requestorRoutes}
+            onMouseEnter={handleOnMouseEnter}
+            onMouseLeave={handleOnMouseLeave}
+          />
+          <Routes>
+            {getRoutes(routes.requestorRoutes)}
+            <Route path="*" element={<Navigate to="/dashboard" />} />
+          </Routes>
+        </>
+      );
+    }
+
+    return <div>No Role Assigned</div>;
+  }
+
+  return cookie.userId && cookie.role ? (
+    <ThemeProvider theme={themeDark}>
+      <CssBaseline />
+      {renderContent()}
     </ThemeProvider>
   ) : (
     <ThemeProvider theme={themeDark}>
@@ -132,7 +183,6 @@ export default function App() {
         {getRoutes(routes.publicRoutes)}
         <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
       </Routes>
-      {/* <Navigate to={{ pathname: "/authentication/sign-in", state: { from: location } }} /> */}
     </ThemeProvider>
   );
 }

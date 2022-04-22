@@ -28,7 +28,14 @@
         "custom": "ignore"
       }
     ],
-    "react/jsx-curly-spacing": [2, "never"]
+    "react/jsx-curly-spacing": [2, "never"],
+    "react/no-unstable-nested-components": [
+      "off",
+      {
+        "allowAsProps": true
+      }
+    ],
+    "no-undef": "off"
   },
   "settings": { "import/resolver": { "node": { "paths": ["src"] } } }
 }
