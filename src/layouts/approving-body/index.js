@@ -5,7 +5,6 @@ import axios from "axios";
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
-import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -13,7 +12,6 @@ import MDTypography from "components/MDTypography";
 import MDAlert from "components/MDAlert";
 import MDSnackbar from "components/MDSnackbar";
 import MDButton from "components/MDButton";
-// import MDBadge from "components/MDBadge";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -25,30 +23,30 @@ import DataTable from "examples/Tables/DataTable";
 import * as url from "../../helpers/url_helper";
 
 // Mock Data
-// import { documentList } from "../../assets/data/index";
+// import { approvingBodyList } from "../../assets/data/index";
 
 const initialState = {
   loading: false,
   error: "",
-  documentList: [],
+  approvingBodyList: [],
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "GET_DOCUMENT_LIST":
+    case "GET_APPROVING_BODY_LIST":
       return {
         ...state,
         loading: true,
-        documentList: [],
+        approvingBodyList: [],
         error: "",
       };
-    case "GET_DOCUMENT_LIST_SUCCESS":
+    case "GET_APPROVING_BODY_LIST_SUCCESS":
       return {
         ...state,
         loading: false,
-        documentList: action.payload,
+        approvingBodyList: action.payload,
       };
-    case "GET_DOCUMENT_LIST_FAIL":
+    case "GET_APPROVING_BODY_LIST_FAIL":
       return {
         ...state,
         loading: false,
@@ -59,7 +57,7 @@ const reducer = (state, action) => {
   }
 };
 
-function Documents() {
+function ApprovingBody() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [rows, setRows] = useState([]);
@@ -69,18 +67,11 @@ function Documents() {
   const closeWarningSB = () => setWarningSB(false);
 
   const columns = [
-    {
-      Header: "Document ID",
-      accessor: "document_id",
-      disableGlobalFilter: true,
-      align: "center",
-    },
-    { Header: "PR No.", accessor: "pr_no", align: "left" },
-    { Header: "Project Title", accessor: "project_title", align: "left" },
-    { Header: "Date Posted", accessor: "date_posted", align: "left" },
-    { Header: "Requestor", accessor: "full_name", align: "left" },
-    { Header: "From", accessor: "from_data", align: "left" },
-    { Header: "Status", accessor: "status", align: "left" },
+    { Header: "Full Name", accessor: "full_name", align: "left" },
+    { Header: "Position", accessor: "position", align: "left" },
+    { Header: "Authorization Level", accessor: "auth_level", align: "left" },
+    { Header: "Approving Level", accessor: "approving_level", align: "left" },
+    { Header: "Approving Office", accessor: "approving_office", align: "left" },
     {
       Header: "Action",
       accessor: "action",
@@ -94,54 +85,53 @@ function Documents() {
         console.log(row);
         return (
           // <MDButton color="info" variant="contained" onClick={() => viewModal(row.values)}>
-          <MDButton color="info" variant="contained" onClick={() => viewModal(row.values)}>
-            <Icon fontSize="small">visibility</Icon>
+          //   View
+          // </MDButton>
+          <MDButton color="info" variant="contained">
+            View
           </MDButton>
-          //   <MDButton color="info" variant="contained">
-          //     <Icon fontSize="small">visibility</Icon>
-          //   </MDButton>
         );
       },
     },
   ];
 
   useEffect(async () => {
-    dispatch({ type: "GET_DOCUMENT_LIST" });
+    dispatch({ type: "GET_APPROVING_BODY_LIST" });
 
-    // dispatch({ type: "GET_DOCUMENT_LIST_SUCCESS", payload: documentList });
+    // dispatch({ type: "GET_APPROVING_BODY_LIST_SUCCESS", payload: approvingBodyList });
     // setWarningSB(false);
 
     // UNCOMMENT IF API IS AVAILABLE
     await axios
-      .get(process.env.REACT_APP_DOMAIN + url.GET_ALL_DOCUMENTS, {
+      .get(process.env.REACT_APP_DOMAIN + url.GET_APPROVING_BODY, {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
-        dispatch({ type: "GET_DOCUMENT_LIST_SUCCESS", payload: response.data.data });
+        dispatch({ type: "GET_APPROVING_BODY_LIST_SUCCESS", payload: response.data.data });
         setWarningSB(false);
       })
       .catch((error) => {
         if (error.message) {
-          dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: error.message });
+          dispatch({ type: "GET_APPROVING_BODY_LIST_FAIL", payload: error.message });
           setWarningSB(true);
         } else if (error.response.status === 404) {
-          dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: error.response.data.message });
+          dispatch({ type: "GET_APPROVING_BODY_LIST_FAIL", payload: error.response.data.message });
           setWarningSB(true);
         } else {
-          dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: JSON.stringify(error) });
+          dispatch({ type: "GET_APPROVING_BODY_LIST_FAIL", payload: JSON.stringify(error) });
           setWarningSB(true);
         }
       });
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isEmpty(state.documentList)) {
-      setRows(state.documentList);
+    if (!isEmpty(state.approvingBodyList)) {
+      setRows(state.approvingBodyList);
     }
-  }, [state.documentList]);
+  }, [state.approvingBodyList]);
 
   return (
     <DashboardLayout>
@@ -175,7 +165,7 @@ function Documents() {
                 coloredShadow="info"
               >
                 <MDTypography variant="h6" color="white">
-                  Document List
+                  Approving Body List
                 </MDTypography>
               </MDBox>
 
@@ -208,4 +198,4 @@ function Documents() {
   );
 }
 
-export default Documents;
+export default ApprovingBody;
