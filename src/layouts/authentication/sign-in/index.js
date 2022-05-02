@@ -31,7 +31,9 @@ import MDAlert from "components/MDAlert";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 
 // Images
-import bgImage from "assets/images/bg-sign-in-basic.jpeg";
+import bgImage from "assets/images/bg-login.png";
+import sysLogo from "assets/images/doctrack-logo.png";
+import govLogo from "assets/images/gscwd-logo.png";
 
 import axios from "axios";
 import { isEmpty } from "lodash";
@@ -121,11 +123,14 @@ function Basic() {
           setWarningSB(false);
         })
         .catch((error) => {
-          if (error.response.status === 404) {
+          if (error.response.status === 500) {
+            dispatch({ type: "SIGNIN_FAIL", payload: error.response.data.message });
+            setWarningSB(true);
+          } else if (error.response.status === 404) {
             dispatch({ type: "SIGNIN_FAIL", payload: error.response.data.message });
             setWarningSB(true);
           } else {
-            dispatch({ type: "SIGNIN_FAIL", payload: error.response.data });
+            dispatch({ type: "SIGNIN_FAIL", payload: error.message });
             setWarningSB(true);
           }
         });
@@ -135,6 +140,7 @@ function Basic() {
   useEffect(() => {
     if (!isEmpty(state.signInResponse)) {
       cookies.set("userId", state.signInResponse.userId);
+      // cookies.set("userId", state.signInResponse.user_id);
       cookies.set("role", state.signInResponse.role);
 
       // console.log("cookies are set");
@@ -146,30 +152,14 @@ function Basic() {
   return (
     <BasicLayout image={bgImage}>
       <Card>
-        <MDBox
-          variant="gradient"
-          bgColor="info"
-          borderRadius="lg"
-          coloredShadow="info"
-          mx={2}
-          mt={-3}
-          p={2}
-          mb={1}
-          textAlign="center"
-        >
-          <MDTypography variant="h4" fontWeight="medium" color="white" mt={1}>
-            Sign in
-          </MDTypography>
+        <MDBox display="flex" flexDirection="row" sx={{ justifyContent: "center" }} my={4} gap={4}>
+          <img src={govLogo} alt="" height={100} width={100} />
+          <img src={sysLogo} alt="" height={100} width={100} />
         </MDBox>
-        <MDBox pt={4} pb={3} px={3}>
-          {state.loading ? (
-            <MDAlert color="secondary" dismissible={false}>
-              <MDTypography variant="body2" color="white">
-                Verifying Credentials
-              </MDTypography>
-            </MDAlert>
-          ) : null}
-
+        <MDTypography variant="h5" fontWeight="medium" color="white" textAlign="center">
+          DOCUMENT TRACKING SYSTEM
+        </MDTypography>
+        <MDBox pb={3} pt={3} px={3}>
           {state.error ? (
             <MDSnackbar
               color="error"
@@ -205,6 +195,14 @@ function Basic() {
                 autoComplete="true"
               />
             </MDBox>
+
+            {state.loading ? (
+              <MDAlert color="warning" dismissible={false}>
+                <MDTypography variant="body2" color="white">
+                  Verifying Credentials
+                </MDTypography>
+              </MDAlert>
+            ) : null}
 
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />

@@ -46,6 +46,9 @@ import Icon from "@mui/material/Icon";
 
 // Custom Pages
 import Documents from "layouts/documents";
+import AddDocument from "layouts/documents/add-document";
+import Users from "layouts/users";
+import ApprovingBody from "layouts/approving-body";
 
 const publicRoutes = [
   {
@@ -74,6 +77,30 @@ const adminRoutes = [
     icon: <Icon fontSize="small">table_view</Icon>,
     route: "/documents",
     component: <Documents />,
+  },
+  {
+    type: "collapse",
+    name: "Add Document",
+    key: "AddDocument",
+    icon: <Icon fontSize="small">add_circle</Icon>,
+    route: "/documents/add-document",
+    component: <AddDocument />,
+  },
+  {
+    type: "collapse",
+    name: "Users",
+    key: "users",
+    icon: <Icon fontSize="small">person</Icon>,
+    route: "/users",
+    component: <Users />,
+  },
+  {
+    type: "collapse",
+    name: "Approving Body",
+    key: "approving-body",
+    icon: <Icon fontSize="small">group</Icon>,
+    route: "/approving-body",
+    component: <ApprovingBody />,
   },
   {
     type: "collapse",

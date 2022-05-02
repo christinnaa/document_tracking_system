@@ -26,7 +26,7 @@ import MDBox from "components/MDBox";
 import PageLayout from "examples/LayoutContainers/PageLayout";
 
 // Authentication pages components
-import Footer from "layouts/authentication/components/Footer";
+// import Footer from "layouts/authentication/components/Footer";
 
 function BasicLayout({ image, children }) {
   return (
@@ -36,15 +36,10 @@ function BasicLayout({ image, children }) {
         width="100%"
         minHeight="100vh"
         sx={{
-          backgroundImage: ({ functions: { linearGradient, rgba }, palette: { gradients } }) =>
-            image &&
-            `${linearGradient(
-              rgba(gradients.dark.main, 0.6),
-              rgba(gradients.dark.state, 0.6)
-            )}, url(${image})`,
-          backgroundSize: "cover",
+          backgroundImage: `url(${image})`,
+          // backgroundSize: "50vh",
           backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          backgroundRepeat: "repeat",
         }}
       />
       <MDBox px={1} width="100%" height="100vh" mx="auto">
@@ -54,7 +49,7 @@ function BasicLayout({ image, children }) {
           </Grid>
         </Grid>
       </MDBox>
-      <Footer light />
+      {/* <Footer light /> */}
     </PageLayout>
   );
 }
