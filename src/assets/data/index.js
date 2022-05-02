@@ -69,6 +69,20 @@ export const documentList = [
     projectNo: "01-202204-0012",
     projectTitle: "Router XYZ",
   },
+  {
+    documentId: 6,
+    requestor: "John Doe",
+    requestorId: 3,
+    prNumber: "0412-029",
+    prDate: "04/18/2022",
+    rLNumber: "0412-030",
+    for: "The General Manager",
+    from: "Admin and General Services",
+    purpose: "This is a purpose placeholder of lorem ipsum dolor sit yus.",
+    accountCode: "223 - IT Equipment & Software",
+    projectNo: "01-202204-0020",
+    projectTitle: "Server XYZ",
+  },
 ];
 
 export const documentTrail = [
