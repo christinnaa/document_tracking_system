@@ -92,7 +92,7 @@ export default function App() {
     });
 
   function renderContent() {
-    if (layout === "dashboard" && cookie.role === "Super Admin") {
+    if (layout === "dashboard" && cookie.role === "Administrator") {
       return (
         <>
           <Sidenav

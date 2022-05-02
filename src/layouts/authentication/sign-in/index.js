@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import React, { useState, useReducer, useEffect } from "react";
 
 // @mui material components
@@ -35,13 +20,13 @@ import bgImage from "assets/images/bg-login.png";
 import sysLogo from "assets/images/doctrack-logo.png";
 import govLogo from "assets/images/gscwd-logo.png";
 
-import axios from "axios";
+// import axios from "axios";
 import { isEmpty } from "lodash";
 import { Cookies } from "react-cookie";
 
 import { useNavigate } from "react-router-dom";
 
-import * as url from "../../../helpers/url_helper";
+// import * as url from "../../../helpers/url_helper";
 
 const initialState = {
   loading: false,
@@ -79,6 +64,33 @@ function Basic() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const cookies = new Cookies();
 
+  const users = [
+    {
+      userId: "employee-001",
+      username: "admin",
+      password: "mypassword",
+      role: "Administrator",
+    },
+    {
+      userId: "employee-002",
+      username: "prcurement",
+      password: "mypassword",
+      role: "Procurement Staff",
+    },
+    {
+      userId: "employee-003",
+      username: "approvingBody",
+      password: "mypassword",
+      role: "Approving Body",
+    },
+    {
+      userId: "employee-004",
+      username: "requestor",
+      password: "mypassword",
+      role: "Requestor",
+    },
+  ];
+
   const [rememberMe, setRememberMe] = useState(false);
 
   const [username, setUsername] = useState("");
@@ -91,11 +103,39 @@ function Basic() {
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
-  const handleAuthentication = async () => {
-    const formData = {
-      username,
-      password,
-    };
+  const authenticationRequest = async () => {
+    // UNCOMMENT IF API IS AVAILABLE
+    // dispatch({ type: "SIGNIN" });
+    // await axios
+    //   .post(process.env.REACT_APP_DOMAIN + url.POST_LOGIN, formData, {
+    //     headers: {
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     dispatch({ type: "SIGNIN_SUCCESS", payload: response.data });
+    //     setWarningSB(false);
+    //   })
+    //   .catch((error) => {
+    //     if (error.response.status === 500) {
+    //       dispatch({ type: "SIGNIN_FAIL", payload: error.response.data.message });
+    //       setWarningSB(true);
+    //     } else if (error.response.status === 404) {
+    //       dispatch({ type: "SIGNIN_FAIL", payload: error.response.data.message });
+    //       setWarningSB(true);
+    //     } else {
+    //       dispatch({ type: "SIGNIN_FAIL", payload: error.message });
+    //       setWarningSB(true);
+    //     }
+    //   });
+  };
+
+  const handleAuthentication = () => {
+    // const formData = {
+    //   username,
+    //   password,
+    // };
 
     if (!username) {
       seterrorUsernameField(true);
@@ -109,31 +149,22 @@ function Basic() {
     }
 
     if (username && password) {
+      // REMOVE IF API IS AVAILABLE
       dispatch({ type: "SIGNIN" });
 
-      await axios
-        .post(process.env.REACT_APP_DOMAIN + url.POST_LOGIN, formData, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          dispatch({ type: "SIGNIN_SUCCESS", payload: response.data });
-          setWarningSB(false);
-        })
-        .catch((error) => {
-          if (error.response.status === 500) {
-            dispatch({ type: "SIGNIN_FAIL", payload: error.response.data.message });
-            setWarningSB(true);
-          } else if (error.response.status === 404) {
-            dispatch({ type: "SIGNIN_FAIL", payload: error.response.data.message });
-            setWarningSB(true);
-          } else {
-            dispatch({ type: "SIGNIN_FAIL", payload: error.message });
-            setWarningSB(true);
-          }
-        });
+      const filtered = users.filter(
+        (user) => user.username === username && user.password === password
+      );
+      if (filtered.length >= 0 && !isEmpty(filtered[0])) {
+        dispatch({ type: "SIGNIN_SUCCESS", payload: filtered[0] });
+        setWarningSB(false);
+      } else {
+        dispatch({ type: "SIGNIN_FAIL", payload: "Credentials not found" });
+        setWarningSB(true);
+      }
+      // ------------------------
+
+      authenticationRequest();
     }
   };
 
