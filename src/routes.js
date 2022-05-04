@@ -79,10 +79,6 @@ const adminRoutes = [
     component: <Documents />,
   },
   {
-    type: "collapse",
-    name: "Add Document",
-    key: "AddDocument",
-    icon: <Icon fontSize="small">add_circle</Icon>,
     route: "/documents/add-document",
     component: <AddDocument />,
   },

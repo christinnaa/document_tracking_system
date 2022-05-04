@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { isEmpty } from "lodash";
-import axios from "axios";
+// import axios from "axios";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -21,11 +21,13 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
+import { useNavigate } from "react-router-dom";
+
 // API endpoints
-import * as url from "../../helpers/url_helper";
+// import * as url from "../../helpers/url_helper";
 
 // Mock Data
-// import { documentList } from "../../assets/data/index";
+import { documentList } from "../../assets/data/index";
 
 const initialState = {
   loading: false,
@@ -67,11 +69,11 @@ function Documents() {
   // Handling notification pop ups if Error
   const [warningSB, setWarningSB] = useState(false);
   const closeWarningSB = () => setWarningSB(false);
-
+  const navigate = useNavigate();
   const columns = [
     {
       Header: "Document ID",
-      accessor: "document_id",
+      accessor: "documentId",
       disableGlobalFilter: true,
       align: "center",
     },
@@ -94,7 +96,7 @@ function Documents() {
         console.log(row);
         return (
           // <MDButton color="info" variant="contained" onClick={() => viewModal(row.values)}>
-          <MDButton color="info" variant="contained" onClick={() => viewModal(row.values)}>
+          <MDButton color="info" variant="contained">
             <Icon fontSize="small">visibility</Icon>
           </MDButton>
           //   <MDButton color="info" variant="contained">
@@ -108,33 +110,33 @@ function Documents() {
   useEffect(async () => {
     dispatch({ type: "GET_DOCUMENT_LIST" });
 
-    // dispatch({ type: "GET_DOCUMENT_LIST_SUCCESS", payload: documentList });
-    // setWarningSB(false);
+    dispatch({ type: "GET_DOCUMENT_LIST_SUCCESS", payload: documentList });
+    setWarningSB(false);
 
     // UNCOMMENT IF API IS AVAILABLE
-    await axios
-      .get(process.env.REACT_APP_DOMAIN + url.GET_ALL_DOCUMENTS, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        dispatch({ type: "GET_DOCUMENT_LIST_SUCCESS", payload: response.data.data });
-        setWarningSB(false);
-      })
-      .catch((error) => {
-        if (error.message) {
-          dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: error.message });
-          setWarningSB(true);
-        } else if (error.response.status === 404) {
-          dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: error.response.data.message });
-          setWarningSB(true);
-        } else {
-          dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: JSON.stringify(error) });
-          setWarningSB(true);
-        }
-      });
+    // await axios
+    //   .get(process.env.REACT_APP_DOMAIN + url.GET_ALL_DOCUMENTS, {
+    //     headers: {
+    //       "Access-Control-Allow-Origin": "*",
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     dispatch({ type: "GET_DOCUMENT_LIST_SUCCESS", payload: response.data.data });
+    //     setWarningSB(false);
+    //   })
+    //   .catch((error) => {
+    //     if (error.message) {
+    //       dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: error.message });
+    //       setWarningSB(true);
+    //     } else if (error.response.status === 404) {
+    //       dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: error.response.data.message });
+    //       setWarningSB(true);
+    //     } else {
+    //       dispatch({ type: "GET_DOCUMENT_LIST_FAIL", payload: JSON.stringify(error) });
+    //       setWarningSB(true);
+    //     }
+    //   });
   }, [dispatch]);
 
   useEffect(() => {
@@ -177,6 +179,19 @@ function Documents() {
                 <MDTypography variant="h6" color="white">
                   Document List
                 </MDTypography>
+              </MDBox>
+              <MDBox ml={2} mt={-3} pt={6} px={2}>
+                <MDButton
+                  color="info"
+                  variant="contained"
+                  size="small"
+                  onClick={() => navigate("/documents/add-document")}
+                >
+                  <Icon fontSize="small">add</Icon>
+                  <MDTypography px={2} variant="h7" color="white">
+                    Add New Document
+                  </MDTypography>
+                </MDButton>
               </MDBox>
 
               <MDBox pt={3}>
