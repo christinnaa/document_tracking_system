@@ -21,10 +21,7 @@ export default function AddDocument() {
       <Grid container>
         <Grid item xs={5} spacing={5}>
           <MDBox py={2}>
-            <MDInput type="text" label="Account Code" name="pr_no" fullWidth />
-          </MDBox>
-          <MDBox py={2}>
-            <MDInput type="text" label="Purpose" name="pr_no" fullWidth />
+            <MDInput type="text" label="Account Code" name="account_code" fullWidth />
           </MDBox>
           <MDBox py={2}>
             <MDInput type="text" label="PR No." name="pr_no" fullWidth />
@@ -33,19 +30,29 @@ export default function AddDocument() {
             <MDInput type="text" label="Project Title" name="project_title" fullWidth />
           </MDBox>
           <MDBox py={2}>
-            <MDInput type="date" label="Date Posted" name="project_title" fullWidth />
+            <MDInput
+              type="date"
+              label="Date Posted"
+              name="date"
+              onFocus="(type='date')"
+              onBlur="if(!value)this.type='text'"
+              fullWidth
+            />
           </MDBox>
           <MDBox py={2}>
-            <MDInput type="text" label="Requestor" name="project_title" fullWidth />
+            <MDInput type="text" label="For" name="for_data" fullWidth />
           </MDBox>
           <MDBox py={2}>
-            <MDInput type="text" label="For" name="project_title" fullWidth />
+            <MDInput type="text" label="From" name="from_data" fullWidth />
           </MDBox>
           <MDBox py={2}>
-            <MDInput type="text" label="From" name="project_title" fullWidth />
+            <MDInput type="text" label="RL No." name="rl_no" fullWidth />
           </MDBox>
           <MDBox py={2}>
-            <MDInput type="text" label="RL No." name="status" fullWidth />
+            <MDInput type="text" label="Purpose" name="purpose" fullWidth />
+          </MDBox>
+          <MDBox py={2}>
+            <MDInput type="text" label="Remarks" name="remarks" fullWidth />
           </MDBox>
           <MDButton color="info" variant="contained" size="small">
             <Icon fontSize="small">save</Icon>
