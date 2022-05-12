@@ -71,17 +71,17 @@ function Documents() {
   const closeWarningSB = () => setWarningSB(false);
   const navigate = useNavigate();
   const columns = [
-    {
-      Header: "Document ID",
-      accessor: "documentId",
-      disableGlobalFilter: true,
-      align: "center",
-    },
-    { Header: "PR No.", accessor: "pr_no", align: "left" },
-    { Header: "Project Title", accessor: "project_title", align: "left" },
-    { Header: "Date Posted", accessor: "date_posted", align: "left" },
-    { Header: "Requestor", accessor: "full_name", align: "left" },
-    { Header: "From", accessor: "from_data", align: "left" },
+    // {
+    //   Header: "Document ID",
+    //   accessor: "documentId",
+    //   disableGlobalFilter: true,
+    //   align: "center",
+    // },
+    { Header: "PR No.", accessor: "prNumber", align: "left" },
+    { Header: "Project Title", accessor: "projectTitle", align: "left" },
+    { Header: "Date Posted", accessor: "prDate", align: "left" },
+    { Header: "Requestor", accessor: "requestor", align: "left" },
+    { Header: "From", accessor: "from", align: "left" },
     { Header: "Status", accessor: "status", align: "left" },
     {
       Header: "Action",
@@ -96,10 +96,29 @@ function Documents() {
         console.log(row);
         return (
           // <MDButton color="info" variant="contained" onClick={() => viewModal(row.values)}>
-          <MDButton color="info" variant="contained">
-            <Icon fontSize="small">visibility</Icon>
-          </MDButton>
-
+          <Grid container spacing={1}>
+            <Grid item>
+              <MDButton color="info" variant="contained" iconOnly>
+                <Icon fontSize="small">visibility</Icon>
+              </MDButton>
+            </Grid>
+            <Grid item>
+              <MDButton color="success" variant="contained" iconOnly>
+                <Icon fontSize="small">edit</Icon>
+              </MDButton>
+            </Grid>
+            <Grid item>
+              <MDButton color="error" variant="contained" iconOnly>
+                <Icon fontSize="small">delete</Icon>
+              </MDButton>
+            </Grid>
+            {/* <MDButton color="info" variant="contained" iconOnly>
+              <Icon fontSize="small">edit</Icon>
+            </MDButton>
+            <MDButton color="info" variant="contained" iconOnly>
+              <Icon fontSize="small">delete</Icon>
+            </MDButton> */}
+          </Grid>
           //   <MDButton color="info" variant="contained">
           //     <Icon fontSize="small">visibility</Icon>
           //   </MDButton>
