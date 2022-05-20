@@ -20,7 +20,7 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 
-export default function AddDocument() {
+export default function EditDocument() {
   // const [userID, setUserID] = useState("");
   const [forData, setForData] = useState("");
   const [fromData, setFromData] = useState("");

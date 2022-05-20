@@ -20,7 +20,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-
+import BasicModal from "examples/Modals";
 import { useNavigate } from "react-router-dom";
 
 // API endpoints
@@ -62,8 +62,10 @@ const reducer = (state, action) => {
 };
 
 function Documents() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [state, dispatch] = useReducer(reducer, initialState);
-
   const [rows, setRows] = useState([]);
 
   // Handling notification pop ups if Error
@@ -96,32 +98,36 @@ function Documents() {
         console.log(row);
         return (
           // <MDButton color="info" variant="contained" onClick={() => viewModal(row.values)}>
+
           <Grid container spacing={1}>
             <Grid item>
-              <MDButton color="info" variant="contained" iconOnly>
+              <MDButton
+                color="info"
+                variant="contained"
+                onClick={() => navigate("/documents/view-document")}
+                iconOnly
+              >
                 <Icon fontSize="small">visibility</Icon>
               </MDButton>
             </Grid>
             <Grid item>
-              <MDButton color="success" variant="contained" iconOnly>
+              <MDButton
+                color="success"
+                variant="contained"
+                onClick={() => navigate("/documents/edit-document")}
+                iconOnly
+              >
                 <Icon fontSize="small">edit</Icon>
               </MDButton>
             </Grid>
+
             <Grid item>
-              <MDButton color="error" variant="contained" iconOnly>
+              <MDButton color="error" variant="contained" onClick={handleOpen} iconOnly>
                 <Icon fontSize="small">delete</Icon>
               </MDButton>
             </Grid>
-            {/* <MDButton color="info" variant="contained" iconOnly>
-              <Icon fontSize="small">edit</Icon>
-            </MDButton>
-            <MDButton color="info" variant="contained" iconOnly>
-              <Icon fontSize="small">delete</Icon>
-            </MDButton> */}
+            <BasicModal openModal={open} closeModal={handleClose} />
           </Grid>
-          //   <MDButton color="info" variant="contained">
-          //     <Icon fontSize="small">visibility</Icon>
-          //   </MDButton>
         );
       },
     },

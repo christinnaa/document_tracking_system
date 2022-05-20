@@ -47,6 +47,8 @@ import Icon from "@mui/material/Icon";
 // Custom Pages
 import Documents from "layouts/documents";
 import AddDocument from "layouts/documents/add-document";
+import ViewDocument from "layouts/documents/view-document";
+import EditDocument from "layouts/documents/edit-document";
 import Users from "layouts/users";
 import ApprovingBody from "layouts/approving-body";
 
@@ -81,6 +83,14 @@ const adminRoutes = [
   {
     route: "/documents/add-document",
     component: <AddDocument />,
+  },
+  {
+    route: "/documents/view-document",
+    component: <ViewDocument />,
+  },
+  {
+    route: "/documents/edit-document",
+    component: <EditDocument />,
   },
   {
     type: "collapse",
