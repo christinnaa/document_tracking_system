@@ -11,6 +11,7 @@ export const documentList = [
     purpose: "This is a purpose placeholder of lorem ipsum dolor sit yus.",
     accountCode: "223 - IT Equipment & Software",
     projectNo: "01-202204-0002",
+    status: "Complete",
     projectTitle: "Firewall appliance",
   },
   {
@@ -25,6 +26,7 @@ export const documentList = [
     purpose: "This is a purpose placeholder of lorem ipsum dolor sit yus.",
     accountCode: "223 - IT Equipment & Software",
     projectNo: "01-202204-0014",
+    status: "Complete",
     projectTitle: "CCTV with complete accessories",
   },
   {
@@ -39,6 +41,7 @@ export const documentList = [
     purpose: "This is a purpose placeholder of lorem ipsum dolor sit yus.",
     accountCode: "223 - IT Equipment & Software",
     projectNo: "01-202203-0043",
+    status: "Complete",
     projectTitle: "Windows server 2019 OS",
   },
   {
@@ -53,6 +56,7 @@ export const documentList = [
     purpose: "This is a purpose placeholder of lorem ipsum dolor sit yus.",
     accountCode: "223 - IT Equipment & Software",
     projectNo: "01-202203-0052",
+    status: "Complete",
     projectTitle: "Windows 10 Pro 2020 OS",
   },
   {
@@ -67,6 +71,7 @@ export const documentList = [
     purpose: "This is a purpose placeholder of lorem ipsum dolor sit yus.",
     accountCode: "223 - IT Equipment & Software",
     projectNo: "01-202204-0012",
+    status: "Complete",
     projectTitle: "Router XYZ",
   },
   {
@@ -81,6 +86,7 @@ export const documentList = [
     purpose: "This is a purpose placeholder of lorem ipsum dolor sit yus.",
     accountCode: "223 - IT Equipment & Software",
     projectNo: "01-202204-0020",
+    status: "Rejected",
     projectTitle: "Server XYZ",
   },
 ];
